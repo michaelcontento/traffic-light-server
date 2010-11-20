@@ -98,8 +98,18 @@ class RequestHandler(BaseHTTPRequestHandler):
 			else:
 				print 'STRANGE'
 		except Exception as detail:
+			response = [
+				Text(str(detail)),
+				NextUpdate(5000),
+				LampRed(ModeBlink(250)),
+				LampGreen(ModeOff()),
+				LampYellow(ModeOff())
+			]
+
 			response_code = 500
-			response_body = str(detail)
+			response_body = ''
+			for event in response:
+				response_body += str(event) 
 		
 		# Set response code and some basic headers
 		self.send_response(response_code)
