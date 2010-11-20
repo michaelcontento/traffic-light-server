@@ -143,7 +143,10 @@ class CIJoe(Job):
 		response = conn.getresponse()		
 
 		if response.status == 412:
-			lampYellow = LampYellow(ModeOn())
+			if response.read() == 'building':
+				lampYellow = LampYellow(ModeOn())
+			else:
+				lampRed = LampRed(ModeOn())
 		else:
 			lampGreen = LampGreen(ModeOn())
 
@@ -152,7 +155,11 @@ class CIJoe(Job):
 if __name__ == '__main__':
 	RequestHandler.job_list = [
 		Delay(100), 
-		[CIJoe('localhost', 4567), Text('Traffic Light Server'), NextUpdate(100)],
+		[
+			CIJoe('localhost', 4567), 
+			Text('Traffic Light Server'), 
+			NextUpdate(100)
+		],
 		Delay(200), 
 		Delay(300)
 	] 
