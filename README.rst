@@ -5,14 +5,6 @@ For informations about the underlying protocol `click here`_
 
 .. _click here: https://github.com/michaelcontento/traffic-light-client/blob/master/protocol.rst
 
-Requirements
-------------
-
-* Python 2.6
-
-Installation and usage
-----------------------
-
 License
 -------
 
