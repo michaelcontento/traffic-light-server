@@ -1,5 +1,6 @@
 from httplib import HTTPConnection
 from urllib import quote
+from random import seed, randint
 
 from traffic_light.event import NextUpdate, Text, LampRed, LampYellow, LampGreen
 from traffic_light.mode import ModeOn, ModeOff, ModeBlink
@@ -15,6 +16,20 @@ class Job:
 
     def run(self):
         return [v for (k, v) in self.state.items()]
+
+class RandomLights(Job):
+    def _randomMode(self):
+        if randint(0, 1) == 0:
+            return ModeOn()
+        else:
+            return ModeOff()
+        
+    def run(self):
+        return [
+            LampRed(self._randomMode()),
+            LampYellow(self._randomMode()),
+            LampGreen(self._randomMode())                
+        ]
 
 class Clear(Job):
     def run(self):
